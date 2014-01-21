@@ -29,11 +29,11 @@ urlpatterns = patterns(
         DeletePostView.as_view(),
         name="delete"),
     url(
-        r'^(ny|endre)/check-slug/$',
+        r'^ny/check-slug/$',
         'checkslug',
         name="create-checkslug"),
     url(
-        r'^(ny|endre)/(?P<pk>\d+)/check-slug/$',
+        r'^endre/(?P<pk>\d+)/check-slug/$',
         'checkslug',
         name="edit-checkslug"),
 
