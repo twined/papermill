@@ -1,0 +1,85 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h3 class="section">Poster – oversikt</h3>
+
+<section class="panel">
+    <header class="panel-heading">
+    <span class="m-r-sm"><span class="status-publisert"><i class="fa fa-circle m-r-sm"> </i> </span> Publisert</span>
+    <span class="m-r-sm"><span class="status-venter"><i class="fa fa-circle m-r-sm"> </i> </span> Venter</span>
+    <span class="m-r-sm"><span class="status-kladd"><i class="fa fa-circle m-r-sm"> </i> </span> Utkast</span>
+    <span class="m-r-sm"><span class="status-slettet"><i class="fa fa-circle m-r-sm"> </i> </span> Slettet</span>
+    </header>
+
+    <table class="table">
+        <colgroup>
+            <col span="1" style="width: 50px; font-weight: bold;">
+            <col span="1" style="width: 30px;">
+            <col span="1">
+            <col span="1" style="width: 60px;">
+            <col span="1" style="width: 60px;">
+            <col span="1" style="width: 30px;">
+            <col span="1" style="width: 30px;">
+            <col span="1" style="width: 30px;">
+            <col span="1" style="width: 30px;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Tittel</th>
+                <th class="center-text">Opprettet</th>
+                <th>Endret</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for post in posts %}
+                <tr>
+                    <td class="center-text">#<strong>{{ post.pk }}</strong></td>
+                    <td class="status-{{ post.status_class|lower }}">
+                        <i class="fa fa-circle"></i>
+                    </td>
+
+                    <td>{{ post.header }}</td>
+                    <td class="center-text text-muted">{{ post.created|date:"d/m/y" }}</td>
+                    <td class="center-text text-muted">{{ post.updated|date:"d/m/y" }}</td>
+                    <td>
+                        <a title="Forhåndsvisning" href="{% url 'admin:papermill:view' post.pk %}">
+                            <span class="fa-stack">
+                              <i class="fa fa-circle fa-stack-2x bluegray"></i>
+                              <i class="fa fa-search fa-stack-1x"></i>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a title="Endre" href="{% url 'admin:papermill:update' post.pk %}">
+                            <span class="fa-stack">
+                              <i class="fa fa-circle fa-stack-2x bluegray"></i>
+                              <i class="fa fa-edit fa-stack-1x"></i>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a title="Slett" href="{% url 'admin:papermill:delete' post.pk %}">
+                            <span class="fa-stack">
+                              <i class="fa fa-circle fa-stack-2x bluegray"></i>
+                              <i class="fa fa-trash-o fa-stack-1x"></i>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+<div class="form-actions">
+    <a href="{% url 'admin:papermill:create' %}" class="btn btn-primary">
+        <i class="fa fa-plus fa-fw"></i> Nytt innlegg
+    </a>
+</div>
+{% endblock content %}

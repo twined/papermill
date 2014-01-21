@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% load crispy_forms_tags %}
+{% load static from staticfiles %}
+{% block css_extra %}
+    <link href="{% static 'css/fileuploader.css' %}" rel="stylesheet" type="text/css">
+{% endblock css_extra %}
+
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/libs/jquery/jquery.slugit.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/libs/jquery/jquery.debounce-1.0.5.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/libs/backbone/underscore.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/libs/backbone/backbone.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/admin/papermill.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/libs/ckeditor/ckeditor.js' %}" charset="utf-8"></script>
+{% endblock extra_js %}
+
+{% block content %}
+{% crispy form %}
+
+{% if form.errors %}
+<div id="form-error">
+    <p>Feil i skjema.<br />Vennligst send inn igjen etter følgende feil er rettet:</p>
+    <ul>
+    {% for field in form %}
+    {% if field.errors %}<li>{{ field.label }} - {{ field.errors|striptags }}</li>{% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}

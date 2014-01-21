@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load static from staticfiles %}
+{% load i18n %}
+{% block feeds %}
+<link rel="alternate" type="application/rss+xml" title="-- Latest news" href="/news/rss/" />
+{% endblock feeds %}
+{% block opengraph_title %}{{ title_prefix }}{% endblock opengraph_title %}
+{% block title %}{{ title_prefix }}{% endblock title %}
+{% block content %}
+
+<div class="row">
+
+    <div id="posts" class="col-md-7">
+        <h2 class="section">{{ title_prefix }}</h2>
+        {% for post in posts %}
+        <div class="post-wrapper">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="post-header">
+                        <h2><a href="{{ post.get_absolute_url }}">{{ post.header }}</a></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="post">
+                        <div class="post-lead">
+                            {{ post.lead_html|safe }}
+                        </div>
+                        <div class="post-body">
+                            {{ post.body|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="meta">
+                        <div class="post-info">
+                            <span class="glyphicon glyphicon-time"></span>{% trans 'Posted' %} {{ post.created|date:"j F Y" }}<br>
+                        {% if post.tags.all %}
+                            <span class="glyphicon glyphicon-tags"></span>
+                            {% for tag in post.tags.all %}
+                                <a href="{% url 'posts:tag' tag.slug %}">{{ tag.name }}</a>
+                                {% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        {% if is_paginated %}
+            {% if page_obj.has_next %}
+            <nav id="page_nav">
+                <a href="?page={{ page_obj.next_page_number }}">{% trans 'neste' %}</a>
+            </nav>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block after_js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'js/posts/posts.js' %}"></script>
+{% endblock after_js %}

@@ -1,0 +1,2 @@
+include README.md
+recursive-include papermill *.py *.html *.js *.gif *.css
