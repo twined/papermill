@@ -15,8 +15,7 @@ class PostDetailView(CacheMixin, DetailView):
 
     def get_queryset(self):
         return Post.published.all().filter(
-            slug__iexact=self.kwargs['slug'],
-            post_type=self.kwargs['post_type'])
+            slug__iexact=self.kwargs['slug'])
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
@@ -24,8 +23,7 @@ class PostDetailView(CacheMixin, DetailView):
         context['title_prefix'] = PAPERMILL_SETTINGS['title_prefix']
 
         try:
-            context['prev'] = self.object.get_previous_by_publish_at(
-                post_type__exact=self.object.post_type)
+            context['prev'] = self.object.get_previous_by_publish_at()
         except:
             pass
         return context

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load i18n %}
 {% load latest_posts_overview from posts_tags %}
 {% block meta_keywords %}{% if post.tags %}{{ post.tags.all|join:"," }}{% endif %}{% endblock meta_keywords %}
 {% block opengraph_title %}{{ title_prefix }} | {{ post.header }}{% endblock opengraph_title %}
