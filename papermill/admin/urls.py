@@ -33,9 +33,9 @@ urlpatterns = patterns(
         'checkslug',
         name="create-checkslug"),
     url(
-        r'^(ny|endre)/(.*)/check-slug/$',
+        r'^(ny|endre)/(?P<pk>\d+)/check-slug/$',
         'checkslug',
-        name="create-checkslug"),
+        name="edit-checkslug"),
 
     url(
         r'^(ny|endre)/get-keywords/$',
