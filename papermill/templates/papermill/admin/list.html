@@ -10,6 +10,7 @@
     <span class="m-r-sm"><span class="status-slettet"><i class="fa fa-circle m-r-sm"> </i> </span> Slettet</span>
     </header>
 
+    {% if posts %}
     <table class="table">
         <colgroup>
             <col span="1" style="width: 50px; font-weight: bold;">
@@ -76,7 +77,15 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <section class="panel-body">
+        <p>
+            <i class="fa fa-info-circle m-r-sm"></i> Ingen poster enda.
+        </p>
+    </section>
+    {% endif %}
 </section>
+
 <div class="form-actions">
     <a href="{% url 'admin:papermill:create' %}" class="btn btn-primary">
         <i class="fa fa-plus fa-fw"></i> Nytt innlegg
