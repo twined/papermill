@@ -11,6 +11,7 @@ from crispy_forms.layout import (Layout, Submit,
 from taggit.forms import TagField
 
 from .models import Post
+from .settings import PAPERMILL_SETTINGS
 
 
 class PostForm(forms.ModelForm):
@@ -28,12 +29,12 @@ class PostForm(forms.ModelForm):
         widget=forms.RadioSelect(), choices=Post.POST_STATUS_TYPES,
         initial='0'
     )
-    featured = forms.ChoiceField(
-        label='Vektlagt',
+    language = forms.ChoiceField(
+        label="Språk",
         required=True,
-        widget=forms.RadioSelect(),
-        initial='0'
-    ),
+        choices=PAPERMILL_SETTINGS['languages'],
+        initial=PAPERMILL_SETTINGS['default_language'],
+    )
     meta_keywords = forms.CharField(
         label='Nøkkelord',
         required=False,
@@ -64,6 +65,9 @@ class PostForm(forms.ModelForm):
                     Div(
                         # 2
                         Div(  # span7
+                            Field(
+                                'language'
+                            ),
                             Field(
                                 'header',
                                 css_class="col-md-12 input-lg"

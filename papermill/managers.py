@@ -2,6 +2,8 @@
 
 from datetime import datetime
 from django.db import models
+from django.utils.translation import get_language
+from .settings import PAPERMILL_SETTINGS
 
 
 class LatestPostsManager(models.Manager):
@@ -19,5 +21,9 @@ class PublishedPostsManager(models.Manager):
     """
     def get_query_set(self):
         qs = super(PublishedPostsManager, self).get_query_set()
-        return qs.filter(status__exact=self.model.PS_PUBLISHED,
-                         publish_at__lte=datetime.now())
+        qs = qs.filter(status__exact=self.model.PS_PUBLISHED,
+                       publish_at__lte=datetime.now())
+        if PAPERMILL_SETTINGS['multilanguage']:
+            qs = qs.filter(language=get_language())
+
+        return qs
