@@ -28,6 +28,12 @@ class PostForm(forms.ModelForm):
         widget=forms.RadioSelect(), choices=Post.POST_STATUS_TYPES,
         initial='0'
     )
+    featured = forms.ChoiceField(
+        label='Vektlagt',
+        required=True,
+        widget=forms.RadioSelect(),
+        initial='0'
+    ),
     meta_keywords = forms.CharField(
         label='Nøkkelord',
         required=False,
@@ -77,6 +83,7 @@ class PostForm(forms.ModelForm):
                         Div(
                             Field('status',
                                   css_class=""),
+                            Field('featured',),
                             css_class='col-md-2',
                         ),
                         css_class="row",

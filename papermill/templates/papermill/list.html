@@ -14,7 +14,7 @@
     <div id="posts" class="col-md-7">
         <h2 class="section">{{ title_prefix }}</h2>
         {% for post in posts %}
-        <div class="post-wrapper">
+        <div class="post-wrapper{% if post.featured %} post-featured{% endif %}">
 
             <div class="row">
                 <div class="col-md-12">
