@@ -37,7 +37,7 @@ class ListPostsView(CacheMixin, ListView):
     paginate_by = PAPERMILL_SETTINGS['paginate_by']
 
     def get_queryset(self):
-        return Post.published.all().order_by('-pk')  # [:10]
+        return Post.published.all().order_by('-featured', '-pk')
 
     def get_context_data(self, **kwargs):
         context = super(ListPostsView, self).get_context_data(**kwargs)

@@ -46,6 +46,10 @@ class Post(models.Model):
     user = models.ForeignKey(User, verbose_name="Bruker")
     status = models.IntegerField(
         choices=POST_STATUS_TYPES, default=0, verbose_name='Status')
+    featured = models.BooleanField(
+        verbose_name="Vektlagt",
+        help_text="Vektlagte poster vises alltid øverst",
+        default=False)
     created = models.DateTimeField(
         auto_now_add=True, verbose_name="Opprettet")
     updated = models.DateTimeField(auto_now=True, verbose_name="Endret")
@@ -86,8 +90,11 @@ class Post(models.Model):
         }
         return reverse('posts:detail', kwargs=kwargs_dict)
 
+    def __unicode__(self):
+        return self.header
+
     class Meta:
-        ordering = ('-created',)
+        ordering = ('featured', '-created',)
 
 # connect signals
 from django.db.models.signals import post_save, post_delete

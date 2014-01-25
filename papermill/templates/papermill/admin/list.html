@@ -15,6 +15,7 @@
         <colgroup>
             <col span="1" style="width: 50px; font-weight: bold;">
             <col span="1" style="width: 30px;">
+            <col span="1" style="width: 30px;">
             <col span="1">
             <col span="1" style="width: 60px;">
             <col span="1" style="width: 60px;">
@@ -25,6 +26,7 @@
         </colgroup>
         <thead>
             <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th>Tittel</th>
@@ -43,8 +45,15 @@
                     <td class="status-{{ post.status_class|lower }}">
                         <i class="fa fa-circle"></i>
                     </td>
+                    <td class="center-text">
+                        {% if post.featured %}
+                            <i class="fa fa-star text-warning"></i>
+                        {% endif %}
+                    </td>
+                    <td>
 
-                    <td>{{ post.header }}</td>
+                        {{ post.header }}
+                    </td>
                     <td class="center-text text-muted">{{ post.created|date:"d/m/y" }}</td>
                     <td class="center-text text-muted">{{ post.updated|date:"d/m/y" }}</td>
                     <td>
