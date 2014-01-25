@@ -37,6 +37,7 @@ class Post(models.Model):
         (PS_DELETED, 'Slettet'),
     )
 
+    language = models.CharField(max_length=10, blank=True)
     header = models.CharField(
         max_length=255, null=False, blank=False,
         verbose_name='Overskrift')
@@ -114,8 +115,8 @@ class PostCategory(models.Model):
     PostCategory model
     """
     name = models.CharField(max_length=255)
-    description = models.TextField()
     slug = models.CharField(max_length=255)
+    description = models.TextField()
     user = models.ForeignKey(User)
     created = models.DateTimeField(
         default=datetime.now, editable=False)

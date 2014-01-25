@@ -1,4 +1,5 @@
 {% extends "admin/base.html" %}
+{% load staticfiles %}
 {% block content %}
 <h3 class="section">Poster – oversikt</h3>
 
@@ -14,8 +15,12 @@
     <table class="table">
         <colgroup>
             <col span="1" style="width: 50px; font-weight: bold;">
+            {% if papermill_settings.multilanguage %}
+            <col span="1" style="width: 30px;">
+            {% endif %}
             <col span="1" style="width: 30px;">
             <col span="1" style="width: 30px;">
+
             <col span="1">
             <col span="1" style="width: 60px;">
             <col span="1" style="width: 60px;">
@@ -27,6 +32,9 @@
         <thead>
             <tr>
                 <th></th>
+                {% if papermill_settings.multilanguage %}
+                <th></th>
+                {% endif %}
                 <th></th>
                 <th></th>
                 <th>Tittel</th>
@@ -42,6 +50,11 @@
     {% for post in posts %}
                 <tr>
                     <td class="center-text">#<strong>{{ post.pk }}</strong></td>
+                    {% if papermill_settings.multilanguage %}
+                    <td>
+                        <img src="{% static 'admin/img/blank.gif' %}" class="flag flag-{{ post.language }}" alt="{{ post.language }}" />
+                    </td>
+                    {% endif %}
                     <td class="status-{{ post.status_class|lower }}">
                         <i class="fa fa-circle"></i>
                     </td>
