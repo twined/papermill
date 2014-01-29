@@ -2,6 +2,7 @@ CKEDITOR.editorConfig = function( config ) {
     // %REMOVE_START%
     config.skin = 'moono';
     // %REMOVE_END%
+    config.language = 'nb';
 
     // The toolbar groups arrangement, optimized for a single toolbar row.
     config.toolbarGroups = [
@@ -44,7 +45,31 @@ CKEDITOR.on('instanceReady', function(ev) {
                 el.className = 'img-responsive';
                 el.attributes.class = 'img-responsive';
                 el.attributes.style = '';
+                el.attributes.height = '';
+                el.attributes.width = '';
             }
         }
     });
 });
+
+CKEDITOR.on('dialogDefinition', function (ev) {
+    // Take the dialog name and its definition from the event data.
+    var dialogName = ev.data.name;
+    var dialogDefinition = ev.data.definition;
+    // Check if the definition is from the dialog we're
+    // interested in (the 'image' dialog).
+    if (dialogName == 'image') {
+        // Get a reference to the 'Image Info' tab.
+        var infoTab = dialogDefinition.getContents('info');
+        // Remove unnecessary widgets/elements from the 'Image Info' tab.
+
+        infoTab.remove('txtHSpace');
+        infoTab.remove('txtVSpace');
+        infoTab.remove('txtBorder');
+
+        infoTab.remove('cmbAlign');
+        infoTab.remove('ratioLock');
+
+    }
+});
+
