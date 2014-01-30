@@ -18,16 +18,10 @@
             {% if papermill_settings.multilanguage %}
             <col span="1" style="width: 30px;">
             {% endif %}
-            <col span="1" style="width: 30px;">
-            <col span="1" style="width: 30px;">
-
+            <col span="2" style="width: 30px;">
             <col span="1">
-            <col span="1" style="width: 60px;">
-            <col span="1" style="width: 60px;">
-            <col span="1" style="width: 30px;">
-            <col span="1" style="width: 30px;">
-            <col span="1" style="width: 30px;">
-            <col span="1" style="width: 30px;">
+            <col span="2" style="width: 60px;">
+            <col span="1" style="width: 140px;">
         </colgroup>
         <thead>
             <tr>
@@ -40,9 +34,6 @@
                 <th>Tittel</th>
                 <th class="center-text">Opprettet</th>
                 <th>Endret</th>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -70,27 +61,14 @@
                     <td class="center-text text-muted">{{ post.created|date:"d/m/y" }}</td>
                     <td class="center-text text-muted">{{ post.updated|date:"d/m/y" }}</td>
                     <td>
-                        <a title="Forhåndsvisning" href="{% url 'admin:papermill:view' post.pk %}">
-                            <span class="fa-stack">
-                              <i class="fa fa-circle fa-stack-2x bluegray"></i>
-                              <i class="fa fa-search fa-stack-1x"></i>
-                            </span>
+                        <a class="btn btn-rounded btn-sm btn-icon btn-default" title="Forhåndsvisning" href="{% url 'admin:papermill:view' post.pk %}">
+                            <i class="fa fa-search"></i>
                         </a>
-                    </td>
-                    <td>
-                        <a title="Endre" href="{% url 'admin:papermill:update' post.pk %}">
-                            <span class="fa-stack">
-                              <i class="fa fa-circle fa-stack-2x bluegray"></i>
-                              <i class="fa fa-edit fa-stack-1x"></i>
-                            </span>
+                        <a class="btn btn-rounded btn-sm btn-icon btn-default" title="Endre" href="{% url 'admin:papermill:update' post.pk %}">
+                            <i class="fa fa-edit"></i>
                         </a>
-                    </td>
-                    <td>
-                        <a title="Slett" href="{% url 'admin:papermill:delete' post.pk %}">
-                            <span class="fa-stack">
-                              <i class="fa fa-circle fa-stack-2x bluegray"></i>
-                              <i class="fa fa-trash-o fa-stack-1x"></i>
-                            </span>
+                        <a class="btn btn-rounded btn-sm btn-icon btn-default" title="Slett" href="{% url 'admin:papermill:delete' post.pk %}">
+                            <i class="fa fa-trash-o"></i>
                         </a>
                     </td>
                     <td>
