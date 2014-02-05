@@ -58,7 +58,7 @@ class PostForm(forms.ModelForm):
         self.helper.layout = Layout(
             Div(
                 # 1
-                HTML('<h3 class="section">Post nytt innlegg</h3>'),
+                HTML('<h1>Post nytt innlegg</h1>'),
             ),
             Div(
                 Div(
