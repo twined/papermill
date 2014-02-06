@@ -14,7 +14,7 @@ class PostsListSitemap(Sitemap):
         return obj
 
     def lastmod(self, obj):
-        post = Post.published.order_by('-updated')[:1]
+        post = Post.published.all().order_by('-updated')[:1]
         if post:
             return post[0].updated
 
@@ -24,7 +24,7 @@ class PostDetailSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Post.published
+        return Post.published.all()
 
     def lastmod(self, obj):
         return obj.updated
