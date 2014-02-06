@@ -3,7 +3,7 @@ from django.conf import settings
 PAPERMILL_SETTINGS = {
     'multilanguage': False,
     'default_language': 'en',
-    'languages': None,
+    'languages': (('en', 'English'),),
     'title_prefix': 'News',
     'paginate_by': 50,
 }
