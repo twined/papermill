@@ -12,6 +12,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 
 import imgin.settings
 from imgin.models import BaseImage
@@ -90,6 +91,11 @@ class Post(models.Model):
             "day": self.created.day,
         }
         return reverse('posts:detail', kwargs=kwargs_dict)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.header)
+        super(Post, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.header

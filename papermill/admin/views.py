@@ -4,10 +4,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import redirect
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic import (
-    CreateView, ListView, UpdateView, DeleteView, DetailView
+    CreateView, ListView, UpdateView, DeleteView, DetailView, View
 )
 
+from taggit.models import Tag
 from cerebrum.views import LoginRequiredMixin
 from cerebrum.utils import json_response
 from imgin.views import (
@@ -127,6 +129,19 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return redirect(self.get_success_url())
+
+
+class AJAXAutoCompleteTagsView(View):
+    """
+    AJAX: Returns tags
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            tags = Tag.objects.filter(name__istartswith=request.GET['query']).values_list('name', flat=True)
+        except MultiValueDictKeyError:
+            tags = []
+
+        return json_response({'suggestions': list(tags)})
 
 # -image----------------------------------------------------------------
 

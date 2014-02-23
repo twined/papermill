@@ -3,7 +3,8 @@ from django.conf.urls import patterns, url
 from papermill.admin.views import (
     CreatePostView, ListPostView, UpdatePostView, DeletePostView,
     AddPostImageView, UploadPostImageView, ListPostImageView,
-    AJAXDeletePostImageView, CKEDITORBrowserView, ViewPostView
+    AJAXDeletePostImageView, CKEDITORBrowserView, ViewPostView,
+    AJAXAutoCompleteTagsView
 )
 
 urlpatterns = patterns(
@@ -21,9 +22,17 @@ urlpatterns = patterns(
         CreatePostView.as_view(),
         name="create"),
     url(
+        r'^ny/autocomplete-tags/$',
+        AJAXAutoCompleteTagsView.as_view(),
+        name="autocomplete-tags"),
+    url(
         r'^endre/(?P<pk>\d+)/$',
         UpdatePostView.as_view(),
         name="update"),
+    url(
+        r'^endre/(?P<pk>\d+)/autocomplete-tags/$',
+        AJAXAutoCompleteTagsView.as_view(),
+        name="autocomplete-tags"),
     url(
         r'^slett/(?P<pk>\d+)/$',
         DeletePostView.as_view(),

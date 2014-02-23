@@ -52,6 +52,15 @@ $(document).ready(function() {
     // backbone
     new app.Posts.MainView();
 
+    // autocomplete tags
+    $('#id_tags').autocomplete({
+        serviceUrl: 'autocomplete-tags/',
+        deferRequestBy: 500,
+        tabDisabled: true,
+        delimiter: ', '
+    });
+
+    // ckeditor
     CKEDITOR.replace( 'id_body', {
         customConfig: '/static/js/ckeditor-config.js',
     } );
