@@ -19,8 +19,8 @@ class PublishedPostsManager(models.Manager):
     """
     Returns latest published posts
     """
-    def get_query_set(self):
-        qs = super(PublishedPostsManager, self).get_query_set()
+    def get_queryset(self):
+        qs = super(PublishedPostsManager, self).get_queryset()
         qs = qs.filter(status__exact=self.model.PS_PUBLISHED,
                        publish_at__lte=datetime.now())
         if PAPERMILL_SETTINGS['multilanguage']:

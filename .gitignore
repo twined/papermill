@@ -36,3 +36,10 @@ nosetests.xml
 .pydevproject
 
 __pycache__
+
+/tests/
+/htmlcov/
+
+/conftest.py
+
+/test_requirements.txt

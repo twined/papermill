@@ -38,7 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Let's have it basic on dialogs as well.
 	config.removeDialogTabs = 'link:advanced';
 
-	config.plugins = 'link,wysiwygarea,toolbar,sourcearea,image,imagebrowser,filebrowser,blockquote,basicstyles,stylescombo,pastetext,removeformat,list,oembed';
+	config.plugins = 'resize,link,wysiwygarea,toolbar,sourcearea,image,imagebrowser,filebrowser,blockquote,basicstyles,stylescombo,pastetext,removeformat,list,oembed';
 	config.extraAllowedContent = 'h1 h2 h3 h4 h5 h6';
 	config.stylesSet =[
 	    { name: 'Overskrift 1', element: 'h1' },
@@ -49,6 +49,7 @@ CKEDITOR.editorConfig = function( config ) {
 	    { name: 'Overskrift 6', element: 'h6' },
 	];
 	config.height = '400px';
+	config.resize_dir = 'vertical';
 	config.filebrowserBrowseUrl = '/admin/postbilder/browser/';
 	config.on = {
 	    instanceReady: function() {

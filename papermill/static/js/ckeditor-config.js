@@ -24,7 +24,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.removeDialogTabs = 'link:advanced';
 
-    config.plugins = 'link,wysiwygarea,toolbar,sourcearea,image,imagebrowser,filebrowser,blockquote,basicstyles,stylescombo,pastetext,removeformat,list,oembed';
+    config.plugins = 'resize,link,wysiwygarea,toolbar,sourcearea,image,imagebrowser,filebrowser,blockquote,basicstyles,stylescombo,pastetext,removeformat,list,oembed';
     config.extraAllowedContent = 'h1 h2 h3 h4 h5 h6';
     config.stylesSet =[
         { name: 'Overskrift 1', element: 'h1' },
@@ -33,12 +33,23 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'Overskrift 4', element: 'h4' },
         { name: 'Overskrift 5', element: 'h5' },
         { name: 'Overskrift 6', element: 'h6' },
+        { name: 'Kode', element: 'code' }
     ];
     config.height = '400px';
+    config.resize_dir = 'vertical';
     config.filebrowserBrowseUrl = '/admin/papermill/imgs/browser/';
 };
 
 CKEDITOR.on('instanceReady', function(ev) {
+    var $script = document.createElement('script'),
+        $editor_instance = CKEDITOR.instances[ev.editor.name];
+
+    $script.src = '//use.typekit.com/fdy0xrr.js';
+    $script.onload = function() {
+        try{$editor_instance.window.$.Typekit.load();}catch(e){}
+    };
+
+    $editor_instance.document.getHead().$.appendChild($script);
     ev.editor.dataProcessor.htmlFilter.addRules( {
         elements: {
             img: function( el ) {
