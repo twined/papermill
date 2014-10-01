@@ -1,26 +1,28 @@
 {% load i18n %}
 {% load url from future %}
-    <div class="row">
-        <div class="col-md-12 overview">
-            <h2 class="section">{% trans 'Latest News' %}</h2>
-            <div class="overview-inner">
-                {% for post in posts %}
-                    {% if forloop.first %}
-                    <div class="latest-news">
-                        <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
-                        <p>
-                            {{ post.lead }}
-                        </p>
-                    </div>
-                    {% else %}
-                        <div class="latest-news">
-                            <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
-                            <p>
-                                {{ post.lead }}
-                            </p>
-                        </div>
-                    {% endif %}
-                    {% endfor %}
-                    </div>
-                </div>
-            </div>
+<div class="col-md-5 overview">
+    <h2 class="section">{% trans 'News archive' %}</h2>
+    <div class="overview-inner">
+    {% for post in posts %}
+        {% if forloop.first %}
+        <div class="latest-news">
+            <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+            {% if show_lead %}
+            <p>
+                {{ post.lead }}
+            </p>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="latest-news">
+            <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+            {% if show_lead %}
+            <p>
+                {{ post.lead }}
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>

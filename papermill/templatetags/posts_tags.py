@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.inclusion_tag('papermill/templatetags/latest_posts_overview.html',
                         takes_context=True)
-def latest_posts_overview(context):
+def latest_posts_overview(context, show_lead=True):
     """
     Renders latest posts overview
     """
@@ -16,4 +16,5 @@ def latest_posts_overview(context):
 
     return {
         'posts': posts,
+        'show_lead': show_lead,
     }

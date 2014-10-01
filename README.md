@@ -86,5 +86,12 @@ Overridable templates:
 
     /papermill/list.html
     /papermill/detail.html
+    /papermill/templatetags/latest_posts_overview.html
 
 Object name is `posts` and `post`.
+
+Template tags
+-------------
+`latest_posts_overview`
+    {% load posts_tags %}
+    {% latest_posts_overview show_lead=True %}
