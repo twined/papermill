@@ -12,7 +12,7 @@ def latest_posts_overview(context, show_lead=True):
     Renders latest posts overview
     """
 
-    posts = Post.latest.posts()
+    posts = Post.latest.posts(count=50)
 
     return {
         'posts': posts,

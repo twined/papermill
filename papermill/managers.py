@@ -8,7 +8,7 @@ from .settings import PAPERMILL_SETTINGS
 
 class LatestPostsManager(models.Manager):
     """
-    Returns latests posts querysets
+    Returns latest posts querysets
     """
     def posts(self, count=3):
         return self.model.objects.all().filter(
