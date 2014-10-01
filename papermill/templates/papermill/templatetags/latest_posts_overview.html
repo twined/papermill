@@ -6,20 +6,40 @@
     {% for post in posts %}
         {% if forloop.first %}
         <div class="latest-news">
-            <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+            <dl>
+                <dt>
+                    <i class="fa fa-angle-double-right"> </i>
+                    <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+                </dt>
+                <dd>
+                    {{ post.created|date:"d/m/Y" }}
+                </dd>
+            </dl>
             {% if show_lead %}
-            <p>
-                {{ post.lead }}
-            </p>
+            <div class="row">
+                <p>
+                    {{ post.lead }}
+                </p>
+            </div>
             {% endif %}
         </div>
         {% else %}
         <div class="latest-news">
-            <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+            <dl>
+                <dt>
+                    <i class="fa fa-angle-double-right"> </i>
+                    <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+                </dt>
+                <dd>
+                    {{ post.created|date:"d/m/Y" }}
+                </dd>
+            </dl>
             {% if show_lead %}
-            <p>
-                {{ post.lead }}
-            </p>
+            <div class="row">
+                <p>
+                    {{ post.lead }}
+                </p>
+            </div>
             {% endif %}
         </div>
         {% endif %}
