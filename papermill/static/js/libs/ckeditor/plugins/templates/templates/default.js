@@ -1,53 +1,6 @@
-﻿/**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
- */
-
-// Register a templates definition set named "default".
-CKEDITOR.addTemplates( 'default', {
-	// The name of sub folder which hold the shortcut preview images of the
-	// templates.
-	imagesPath: CKEDITOR.getUrl( CKEDITOR.plugins.getPath( 'templates' ) + 'templates/images/' ),
-
-	// The templates definitions.
-	templates: [
-		{
-		title: 'Utgivelse',
-		image: 'template1.gif',
-		description: 'Plateutgivelse.',
-		html: '<div class="col-md-6">' +
-        '    <div class="frosty-inner music-album">' +
-        '        <img class="img-responsive space-that-top" src="/static/img/1234.jpg" />' +
-        '        <ul>' +
-        '            <li><a href="https://play.spotify.com/album/0FPdW5JkkS6I0qUgbnNRNZ?play=true&utm_source=open.spotify.com&utm_medium=open">' +
-        '                                    Spotify' +
-        '                                </a></li>' +
-        '            <li><a href="http://wimp.no/wweb/album/?album=23200174">' +
-        '                                    Wimp' +
-        '                                </a></li>' +
-        '            <li><a href="https://itunes.apple.com/no/album/1-2-3-4-radio-star/id727114433">' +
-        '                                    iTunes' +
-        '                                </a></li>' +
-        '            <li><a href="http://www.platekompaniet.no/Musikk.aspx/CD/Billie_Van/1_2_3_4_Radio_Star/?id=3762038">' +
-        '                                    Platekompaniet' +
-        '                                </a></li>' +
-        '        </ul>' +
-        '    </div>' +
-        '</div>'
-	},
-
-		{
-		title: 'Image and Title',
-		image: 'template1.gif',
-		description: 'One main image with a title and text that surround the image.',
-		html: '<h3>' +
-			// Use src=" " so image is not filtered out by the editor as incorrect (src is required).
-			'<img src=" " alt="" style="margin-right: 10px" height="100" width="100" align="left" />' +
-			'Type the title here' +
-			'</h3>' +
-			'<p>' +
-			'Type the text here' +
-			'</p>'
-	}
-	]
-});
+﻿/*
+ Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+CKEDITOR.addTemplates("default",{imagesPath:CKEDITOR.getUrl(CKEDITOR.plugins.getPath("templates")+"templates/images/"),templates:[{title:"Image and Title",image:"template1.gif",description:"One main image with a title and text that surround the image.",html:'<h3><img src=" " alt="" style="margin-right: 10px" height="100" width="100" align="left" />Type the title here</h3><p>Type the text here</p>'},{title:"Strange Template",image:"template2.gif",description:"A template that defines two colums, each one with a title, and some text.",
+html:'<table cellspacing="0" cellpadding="0" style="width:100%" border="0"><tr><td style="width:50%"><h3>Title 1</h3></td><td></td><td style="width:50%"><h3>Title 2</h3></td></tr><tr><td>Text 1</td><td></td><td>Text 2</td></tr></table><p>More text goes here.</p>'},{title:"Text and Table",image:"template3.gif",description:"A title with some text and a table.",html:'<div style="width: 80%"><h3>Title goes here</h3><table style="width:150px;float: right" cellspacing="0" cellpadding="0" border="1"><caption style="border:solid 1px black"><strong>Table title</strong></caption><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></table><p>Type the text here</p></div>'}]});
