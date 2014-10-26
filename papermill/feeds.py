@@ -1,3 +1,4 @@
+'''
 from django.conf import settings
 from django.contrib.syndication.views import Feed
 from .models import Post
@@ -20,3 +21,4 @@ class LatestUpdatesFeed(Feed):
 
     def item_description(self, item):
         return item.body
+'''

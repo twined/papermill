@@ -14,12 +14,11 @@ Installation:
 Usage:
 ------
 
-Add `papermill` to `INSTALLED_APPS` and add this to your urlpatterns:
+Add `papermill` to `INSTALLED_APPS`
 
-    # urls
-    url(
-        r'^posts/', include('papermill.urls', namespace="posts")
-    ),
+Create a local app based on the papermill template
+
+    ./manage.py startapp --template http://github.com/twined/papermill/tree/master/app_template/ --extension py,md <yourprojectname>/apps/<yourappname>
 
 Then add this to your `settings.py`
 
@@ -95,4 +94,4 @@ Template tags
 `latest_posts_overview`
 
     {% load posts_tags %}
-    {% latest_posts_overview show_lead=True %}
+    {% latest_posts_overview <post_object or posts_queryset> show_lead=True count=50 %}

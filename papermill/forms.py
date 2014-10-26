@@ -9,24 +9,25 @@ from crispy_forms.layout import (Layout, Submit,
                                  Div, HTML, Field)
 
 from taggit.forms import TagField
+from cerebrum.fields import SlugField
 
-from .models import Post
+from .models import BasePost
 from .settings import PAPERMILL_SETTINGS
 
 
-class PostForm(forms.ModelForm):
+class BasePostForm(forms.ModelForm):
     tags = TagField(
         label="Tags",
         required=False,
     )
-
     slug = forms.CharField(
+        label="URL",
         required=True,
-        widget=forms.HiddenInput()
+        #  widget=forms.HiddenInput()
     )
     status = forms.ChoiceField(
         required=True,
-        widget=forms.RadioSelect(), choices=Post.POST_STATUS_TYPES,
+        widget=forms.RadioSelect(), choices=BasePost.POST_STATUS_TYPES,
         initial='0'
     )
     language = forms.ChoiceField(
@@ -53,79 +54,69 @@ class PostForm(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        Field.template = 'bootstrap/custom_field.html'
+        #  Field.template = 'bootstrap/custom_field.html'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                # 1
-                HTML('<h1>Post nytt innlegg</h1>'),
-            ),
-            Div(
-                Div(
-                    Div(
-                        # 2
-                        Div(  # span7
-                            Field(
-                                'language'
-                            ),
-                            Field(
-                                'header',
-                                css_class="col-md-12 input-lg"
-                            ),
-                            Field(
-                                'slug',
-                            ),
+                # 2
+                Div(  # span7
+                    Field(
+                        'language'
+                    ),
+                    Field(
+                        'header',
+                        css_class="col-md-12 input-lg"
+                    ),
+                    SlugField(
+                        'slug',
+                    ),
 
-                            Field(
-                                'lead',
-                                css_class="col-md-12",
-                                style="height: 100px;"
-                            ),
-                            css_class='col-md-10'
-                        ),
-                        # Right column
-                        Div(
-                            Field('status',
-                                  css_class=""),
-                            Field('featured',),
-                            css_class='col-md-2',
-                        ),
-                        css_class="row",
+                    Field(
+                        'lead',
+                        css_class="col-md-12",
+                        style="height: 100px;"
                     ),
-                    Div(  # row
-                        Div(  # md-12
-                            Field(
-                                'body',
-                            ),
-                            css_class="col-md-12",
-                        ),
-                        css_class="row",
-                    ),
-                    Div(  # row
-                        Div(  # span7
-                            Field(
-                                'tags',
-                            ),
-                            css_class='col-md-10',
-                        ),
-                        Div(  # span2
-                            Field(
-                                'publish_at'
-                            ),
-                            css_class='col-md-2',
-                        ),
-                        css_class='row'
-                    ),
-                    css_class="panel-body",
+                    css_class='col-md-10'
                 ),
-                css_class='panel panel-default',  # 2
-            )
+                # Right column
+                Div(
+                    Field('status',
+                          css_class=""),
+                    Field('featured',),
+                    css_class='col-md-2',
+                ),
+                css_class="row",
+            ),
+            Div(  # row
+                Div(  # md-12
+                    Field(
+                        'body',
+                    ),
+                    css_class="col-md-12",
+                ),
+                css_class="row",
+            ),
+            Div(  # row
+                Div(  # span7
+                    Field(
+                        'tags',
+                    ),
+                    css_class='col-md-10',
+                ),
+                Div(  # span2
+                    Field(
+                        'publish_at'
+                    ),
+                    css_class='col-md-2',
+                ),
+                css_class='row'
+            ),
         )
         self.helper.add_input(
             Submit('submit', 'Lagre', css_class="btn btn-primary"))
 
-        super(PostForm, self).__init__(*args, **kwargs)
+        super(BasePostForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        model = Post
+        model = BasePost
         exclude = ('user',)

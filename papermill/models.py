@@ -22,7 +22,7 @@ from taggit.managers import TaggableManager
 from .managers import LatestPostsManager, PublishedPostsManager
 
 
-class Post(models.Model):
+class BasePost(models.Model):
     """
     Post model
     """
@@ -42,7 +42,7 @@ class Post(models.Model):
     header = models.CharField(
         max_length=255, null=False, blank=False,
         verbose_name='Overskrift')
-    slug = models.CharField(max_length=255, verbose_name="URL")
+    slug = models.CharField(verbose_name='URL', max_length=255)
     lead = models.TextField(verbose_name='Ingress', blank=True)
     body = models.TextField(verbose_name="Brødtekst", blank=True)
     user = models.ForeignKey(User, verbose_name="Bruker")
@@ -95,28 +95,17 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.header)
-        super(Post, self).save(*args, **kwargs)
+        super(BasePost, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.header
 
     class Meta:
         ordering = ('featured', '-created',)
-
-# connect signals
-from django.db.models.signals import post_save, post_delete
-from .cache import invalidate_cache
-post_save.connect(
-    invalidate_cache, sender=Post,
-    dispatch_uid="Post.post_save.invalidate"
-)
-post_delete.connect(
-    invalidate_cache, sender=Post,
-    dispatch_uid="Post.post_delete.invalidate"
-)
+        abstract = True
 
 
-class PostCategory(models.Model):
+class BasePostCategory(models.Model):
     """
     PostCategory model
     """
@@ -129,8 +118,11 @@ class PostCategory(models.Model):
     modified = models.DateTimeField(
         default=datetime.now, editable=False)
 
+    class Meta:
+        abstract = True
 
-class PostImage(BaseImage):
+
+class BasePostImage(BaseImage):
     """
     Models an image for upload and use through post object.
     Needs IMGIN
@@ -164,15 +156,4 @@ class PostImage(BaseImage):
     class Meta:
         verbose_name = 'Postbilde'
         verbose_name_plural = 'Postbilder'
-
-# connect signals
-from django.db.models.signals import post_save, post_delete
-from .cache import invalidate_cache
-post_save.connect(
-    invalidate_cache, sender=PostImage,
-    dispatch_uid="PostImage.post_save.invalidate"
-)
-post_delete.connect(
-    invalidate_cache, sender=PostImage,
-    dispatch_uid="PostImage.post_delete.invalidate"
-)
+        abstract = True

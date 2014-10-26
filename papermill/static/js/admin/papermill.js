@@ -46,7 +46,6 @@ if (typeof String.prototype.startsWith != 'function') {
     return this.slice(0, str.length) == str;
   };
 }
-CKEDITOR_BASEPATH = '/static/js/libs/ckeditor/';
 
 $(document).ready(function() {
     // backbone
@@ -60,10 +59,51 @@ $(document).ready(function() {
         delimiter: ', '
     });
 
-    // ckeditor
-    CKEDITOR.replace( 'id_body', {
-        customConfig: '/static/js/ckeditor-config.js',
-    } );
+    $('#id_body').editable({
+        theme: 'gray',
+        language: 'nb',
+        inlineMode: false,
+        // Set the load images request URL.
+        imagesLoadURL: "/admin/nyheter/imgs/browser/",
+        imageUploadURL: "/admin/nyheter/imgs/froala-upload/",
+        imageUploadParams: {
+            "upload_to": "testing/path"
+        },
+
+        defaultImageWidth: 0,
+        defaultBlockStyle: {
+            'f-test': 'Test'
+        },
+        minHeight: 300,
+        height: 500,
+        plainPaste: true
+    }).on('editable.imagesLoadError', function (e, editor, error) {
+        // Custom error message returned from the server.
+        if (error.code == 0) {
+            console.log('Custom error message returned from the server.');
+        }
+
+        // Bad link. One of the returned image links cannot be loaded.
+        else if (error.code == 1) {
+            console.log('Bad link. One of the returned image links cannot be loaded.');
+        }
+
+        // Error during HTTP request to load images.
+        else if (error.code == 2) {
+            console.log('Error during HTTP request to load images.');
+        }
+
+        // Missing imagesLoadURL option.
+        else if (error.code == 3) {
+            console.log('Missing imagesLoadURL option.');
+        }
+
+        // Parsing response failed.
+        else if (error.code == 4) {
+            console.log('Parsing response failed');
+        }
+    });
+
 });
 
 /* backbone */
@@ -72,9 +112,10 @@ $(document).ready(function() {
 
 var app = app || {};
     app.vent = app.vent || _.extend({}, Backbone.Events);
-    app.Images = app.Images || {};
+    //app.Images = app.Images || {};
     app.Posts = app.Posts || {};
 
+/*
     app.Images.UploadModalView = Backbone.View.extend({
         tagName: 'div',
         className: 'modal large',
@@ -417,21 +458,23 @@ var app = app || {};
             return this;
         }
     }),
+*/
 
     app.Posts.MainView = Backbone.View.extend({
-
         el: 'body',
-
         events: {
             'submit form': 'clickSubmit'
         },
 
         initialize: function() {
             that = this;
+
             new app.Posts.LeadView();
             new app.Posts.HeaderView();
             new app.Posts.KeywordsView();
+
             this.isDirty = false;
+
             app.vent.on('posts:change', this.markDirty, this);
 
             window.onbeforeunload = function() {
@@ -449,8 +492,6 @@ var app = app || {};
                 e.preventDefault();
             }
             window.onbeforeunload = $.noop();
-            //$('#id_body').val($('#editor').getCode());
-            //$("form").submit(function() { window.onbeforeunload = $.noop; });
         },
 
         checkForm: function() {

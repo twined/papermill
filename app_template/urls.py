@@ -1,4 +1,3 @@
-'''
 from django.conf.urls import patterns, url
 
 from .views import PostDetailView, ListPostsView, ListTaggedPostsView
@@ -13,4 +12,3 @@ urlpatterns = patterns(
         PostDetailView.as_view(), name='detail'),
     #(r'^rss/$', LatestUpdatesFeed()),
 )
-'''

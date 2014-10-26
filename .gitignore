@@ -26,4 +26,3 @@ __pycache__
 /htmlcov/
 /conftest.py
 /test_requirements.txt
-papermill/static/js/libs/ckeditor_older
