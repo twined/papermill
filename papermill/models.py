@@ -42,7 +42,9 @@ class BasePost(models.Model):
     header = models.CharField(
         max_length=255, null=False, blank=False,
         verbose_name='Overskrift')
-    slug = models.CharField(verbose_name='URL', max_length=255)
+    slug = models.CharField(
+        verbose_name='URL', max_length=255, db_index=True,
+    )
     lead = models.TextField(verbose_name='Ingress', blank=True)
     body = models.TextField(verbose_name="Brødtekst", blank=True)
     user = models.ForeignKey(User, verbose_name="Bruker")
@@ -53,13 +55,13 @@ class BasePost(models.Model):
         help_text="Vektlagte poster vises alltid øverst",
         default=False)
     created = models.DateTimeField(
-        auto_now_add=True, verbose_name="Opprettet")
+        auto_now_add=True, verbose_name="Opprettet", db_index=True)
     updated = models.DateTimeField(auto_now=True, verbose_name="Endret")
     publish_at = models.DateTimeField(
         default=datetime.now, verbose_name='Publiseringstidspunkt')
     published = models.DateTimeField(
         null=True, blank=True, editable=False,
-        verbose_name='Publisert')
+        verbose_name='Publisert', db_index=True)
     tweeted = models.BooleanField(
         null=False, blank=False, default=False, editable=False)
     meta_keywords = models.CharField(
