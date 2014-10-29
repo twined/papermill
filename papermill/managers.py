@@ -12,7 +12,7 @@ class LatestPostsManager(models.Manager):
     """
     def posts(self, count=3):
         return self.model.objects.all().filter(
-            status=self.model.PS_PUBLISHED).order_by('-publish_at')[:count]
+            status=self.model.STATUS_PUBLISHED).order_by('-publish_at')[:count]
 
 
 class PublishedPostsManager(models.Manager):
@@ -21,7 +21,7 @@ class PublishedPostsManager(models.Manager):
     """
     def get_queryset(self):
         qs = super(PublishedPostsManager, self).get_queryset()
-        qs = qs.filter(status__exact=self.model.PS_PUBLISHED,
+        qs = qs.filter(status__exact=self.model.STATUS_PUBLISHED,
                        publish_at__lte=timezone.now())
         if PAPERMILL_SETTINGS['multilanguage']:
             qs = qs.filter(language=get_language())
