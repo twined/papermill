@@ -48,6 +48,10 @@ if (typeof String.prototype.startsWith != 'function') {
 }
 
 $(document).ready(function() {
+    // set that pesky token!
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": getCookie("csrftoken") }
+    });
     // backbone
     new app.Posts.MainView();
 
