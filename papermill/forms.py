@@ -81,9 +81,9 @@ class BasePostForm(forms.ModelForm):
                 # Right column
                 Div(
                     Field('status',
-                          css_class=""),
+                          css_class="", wrapper_class="col-md-2"),
                     Field('featured',),
-                    css_class='col-md-2',
+                    css_class='col-md-2 well',
                 ),
                 css_class="row",
             ),

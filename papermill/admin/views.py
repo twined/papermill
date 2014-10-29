@@ -10,7 +10,7 @@ from django.views.generic import (
 )
 
 from taggit.models import Tag
-from cerebrum.views import LoginRequiredMixin
+from cerebrum.views import LoginRequiredMixin, DispatchProtectionMixin
 from cerebrum.utils import json_response
 from imgin.views import (
     BaseImageCreateView, AJAXBaseImageHandleUploadView,
@@ -87,7 +87,12 @@ class BaseViewPostView(LoginRequiredMixin, DetailView):
     template_name = "papermill/admin/detail.html"
 
 
-class BaseCreatePostView(LoginRequiredMixin, CreateView):
+class BaseCreatePostView(DispatchProtectionMixin,
+                         LoginRequiredMixin, CreateView):
+    '''
+    Base view for creating new posts. Make sure to add CSRF for the
+    image upload portion.
+    '''
     form_class = BasePostForm
     template_name = "papermill/admin/form.html"
     success_url = reverse_lazy('admin:papermill:list')
@@ -105,7 +110,12 @@ class BaseCreatePostView(LoginRequiredMixin, CreateView):
         return super(BaseCreatePostView, self).form_invalid(form)
 
 
-class BaseUpdatePostView(LoginRequiredMixin, UpdateView):
+class BaseUpdatePostView(DispatchProtectionMixin,
+                         LoginRequiredMixin, UpdateView):
+    '''
+    Base view for updating posts. Make sure to add CSRF for the
+    image upload portion.
+    '''
     model = BasePost
     form_class = BasePostForm
     template_name = "papermill/admin/form.html"
