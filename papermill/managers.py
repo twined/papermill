@@ -12,7 +12,8 @@ class LatestPostsManager(models.Manager):
     """
     def posts(self, count=3):
         return self.model.objects.all().filter(
-            status=self.model.STATUS_PUBLISHED).order_by('-publish_at')[:count]
+            status=self.model.STATUS_PUBLISHED).order_by(
+            '-publish_at', '-id')[:count]
 
 
 class PublishedPostsManager(models.Manager):
