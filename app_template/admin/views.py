@@ -10,7 +10,7 @@ from django.views.generic import (
 )
 
 from cerebrum.utils import json_response
-from cerebrum.views import LoginRequiredMixin
+from cerebrum.mixins import LoginRequiredMixin
 
 from imgin.views import (
     BaseImageCreateView, AJAXBaseImageHandleUploadView,

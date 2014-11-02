@@ -4,22 +4,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
-from django.utils.datastructures import MultiValueDictKeyError
-from django.views.generic import (
-    CreateView, ListView, UpdateView, DeleteView, DetailView, View
-)
 
-from taggit.models import Tag
-from cerebrum.views import LoginRequiredMixin, DispatchProtectionMixin
+from django.views.generic import CreateView
+from django.views.generic import ListView
+from django.views.generic import UpdateView
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
+
+from cerebrum.mixins import LoginRequiredMixin, DispatchProtectionMixin
 from cerebrum.utils import json_response
-from imgin.views import (
-    BaseImageCreateView, AJAXBaseImageHandleUploadView,
-    AJAXBaseImageDeleteView, BaseImageListView
-)
 
-from ..models import (
-    BasePost, BasePostImage
-)
+
+from ..models import BasePost
+from ..models import BasePostImage
+
 from ..forms import BasePostForm
 
 
@@ -36,41 +34,6 @@ def tweet(request, pk):
     #  post_to_twitter(request, Post.objects.get(pk=pk))
     #  return redirect(reverse('admin:papermill:list'))
     pass
-
-
-class BaseAJAXCheckSlugView(LoginRequiredMixin, View):
-    """
-    Checks given slug against the database
-    """
-    model = BasePost
-
-    def get(self, request, *args, **kwargs):
-        if 'slug' not in request.GET:
-            # slug wasn't passed.
-            return json_response({
-                'status': 400,
-                'error_msg': 'No slug passed to pages::checkslug'
-            })
-
-        slug = request.GET['slug'].lower()
-
-        if 'pk' in self.kwargs:
-            # it's an edit. it's ok if it's the same as before
-            obj = self.model.objects.get(pk=self.kwargs['pk'])
-            if obj.slug == slug:
-                return json_response({
-                    'status': 200,
-                })
-
-        if self.model.objects.all().filter(slug=slug):
-            return json_response({
-                'status': 300,
-                'error_msg': 'Overskriften eksisterer allerede'
-            })
-
-        return json_response({
-            'status': 200,
-        })
 
 
 class BaseListPostView(LoginRequiredMixin, ListView):
@@ -147,18 +110,3 @@ class BaseDeletePostView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return redirect(self.get_success_url())
-
-
-class AJAXAutoCompleteTagsView(View):
-    """
-    AJAX: Returns tags
-    """
-    def get(self, request, *args, **kwargs):
-        try:
-            tags = Tag.objects.filter(
-                name__istartswith=request.GET['query']
-            ).values_list('name', flat=True)
-        except MultiValueDictKeyError:
-            tags = []
-
-        return json_response({'suggestions': list(tags)})
