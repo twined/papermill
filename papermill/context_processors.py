@@ -10,6 +10,5 @@ from .settings import PAPERMILL_SETTINGS
 
 
 def config(request):
-
     cfg = PAPERMILL_SETTINGS
     return {'papermill_settings': cfg}
