@@ -24,7 +24,6 @@ class BasePostForm(forms.ModelForm):
     slug = forms.CharField(
         label="URL",
         required=True,
-        #  widget=forms.HiddenInput()
     )
     status = forms.ChoiceField(
         required=True,
@@ -38,14 +37,14 @@ class BasePostForm(forms.ModelForm):
         initial=PAPERMILL_SETTINGS['default_language'],
     )
     meta_keywords = forms.CharField(
-        label='Nøkkelord',
+        label='META nøkkelord til søkemotorer',
         required=False,
-        widget=forms.Textarea(attrs={'rows': 4})
+        widget=forms.Textarea(attrs={'rows': 3})
     )
     meta_description = forms.CharField(
-        label='Beskrivelse',
+        label='META beskrivelse til søkemotorer',
         required=False,
-        widget=forms.Textarea(attrs={'rows': 6})
+        widget=forms.Textarea(attrs={'rows': 3})
     )
     publish_at = forms.DateTimeField(
         label='Publiseringstidspunkt',
@@ -68,6 +67,30 @@ class BasePostForm(forms.ModelForm):
                         'lead',
                         style="height: 100px;"
                     ),
+                    Div(  # row
+                        Div(  # md-12
+                            Field(
+                                'body',
+                            ),
+                            css_class="col-md-12",
+                        ),
+                        css_class="row",
+                    ),
+                    Div(  # row
+                        Div(  # span7
+                            Field(
+                                'tags',
+                            ),
+                            css_class='col-md-10',
+                        ),
+                        Div(  # span2
+                            Field(
+                                'publish_at'
+                            ),
+                            css_class='col-md-2',
+                        ),
+                        css_class='row'
+                    ),
                     css_class='col-md-10'
                 ),
                 # Right column
@@ -78,30 +101,7 @@ class BasePostForm(forms.ModelForm):
                 ),
                 css_class="row",
             ),
-            Div(  # row
-                Div(  # md-12
-                    Field(
-                        'body',
-                    ),
-                    css_class="col-md-12",
-                ),
-                css_class="row",
-            ),
-            Div(  # row
-                Div(  # span7
-                    Field(
-                        'tags',
-                    ),
-                    css_class='col-md-10',
-                ),
-                Div(  # span2
-                    Field(
-                        'publish_at'
-                    ),
-                    css_class='col-md-2',
-                ),
-                css_class='row'
-            ),
+
         )
         self.helper.add_input(
             Submit('submit', 'Lagre', css_class="btn btn-primary"))

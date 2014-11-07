@@ -67,11 +67,11 @@ class BasePost(models.Model):
     meta_keywords = models.CharField(
         max_length=255,
         null=True,
-        verbose_name="Nøkkelord til søkemotorer")
+        verbose_name="META nøkkelord til søkemotorer")
     meta_description = models.CharField(
         max_length=255,
         null=True,
-        verbose_name="Beskrivelse til søkemotorer")
+        verbose_name="META beskrivelse til søkemotorer")
 
     objects = models.Manager()
     latest = LatestPostsManager()
