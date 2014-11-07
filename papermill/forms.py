@@ -10,6 +10,7 @@ from crispy_forms.layout import (Layout, Submit,
 
 from taggit.forms import TagField
 from cerebrum.fields import SlugField
+from cerebrum.fields import StatusField
 
 from .models import BasePost
 from .settings import PAPERMILL_SETTINGS
@@ -60,27 +61,18 @@ class BasePostForm(forms.ModelForm):
             Div(
                 # 2
                 Div(  # span7
-                    Field(
-                        'language'
-                    ),
-                    Field(
-                        'header',
-                        css_class="col-md-12 input-lg"
-                    ),
-                    SlugField(
-                        'slug',
-                    ),
-
+                    Field('language'),
+                    Field('header'),
+                    SlugField('slug'),
                     Field(
                         'lead',
-                        css_class="col-md-12",
                         style="height: 100px;"
                     ),
                     css_class='col-md-10'
                 ),
                 # Right column
                 Div(
-                    Field('status'),
+                    StatusField('status'),
                     Field('featured'),
                     css_class='col-md-2 well',
                 ),
