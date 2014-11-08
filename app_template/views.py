@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from papermill.views import (
-    BasePostDetailView, BaseListPostsView, BaseListTaggedPostsView
+    BasePostDetailView, BasePostsListView, BaseListTaggedPostsView
 )
 
 from .models import Post
@@ -10,7 +10,7 @@ class PostDetailView(BasePostDetailView):
     model = Post
 
 
-class ListPostsView(BaseListPostsView):
+class PostsListView(BasePostsListView):
     model = Post
 
 

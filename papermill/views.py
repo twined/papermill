@@ -26,7 +26,7 @@ class BasePostDetailView(DetailView):
         return context
 
 
-class BaseListPostsView(ListView):
+class BasePostsListView(ListView):
     model = BasePost
     context_object_name = "posts"
     template_name = "papermill/list.html"
@@ -36,7 +36,7 @@ class BaseListPostsView(ListView):
         return self.model.published.all().order_by('-featured', '-pk')
 
     def get_context_data(self, **kwargs):
-        context = super(BaseListPostsView, self).get_context_data(**kwargs)
+        context = super(BasePostsListView, self).get_context_data(**kwargs)
         context['title_prefix'] = PAPERMILL_SETTINGS['title_prefix']
         return context
 
