@@ -12,7 +12,9 @@ class LatestPostsManager(models.Manager):
     """
     def posts(self, count=3):
         return self.model.objects.all().filter(
-            status=self.model.STATUS_PUBLISHED).order_by(
+            status=self.model.STATUS_PUBLISHED,
+            publish_at__lte=timezone.now()
+            ).order_by(
             '-publish_at', '-id')[:count]
 
 
