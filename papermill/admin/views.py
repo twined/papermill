@@ -1,6 +1,10 @@
-# posts.py
+# -*- coding: utf-8 -*-
+"""
+// Twined - Papermill
+// admin base view definitions for the Papermill app
+// (c) Twined/Univers 2009-2014. All rights reserved.
+"""
 
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
@@ -11,12 +15,13 @@ from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
 
-from cerebrum.mixins import LoginRequiredMixin, DispatchProtectionMixin
+from cerebrum.mixins import DispatchProtectionMixin
+from cerebrum.mixins import FormMessagesMixin
+from cerebrum.mixins import LoginRequiredMixin
 from cerebrum.utils import json_response
 
-
 from ..models import BasePost
-from ..models import BasePostImage
+#  from ..models import BasePostImage
 
 from ..forms import BasePostForm
 
@@ -50,50 +55,43 @@ class BaseViewPostView(LoginRequiredMixin, DetailView):
     template_name = "papermill/admin/detail.html"
 
 
-class BaseCreatePostView(DispatchProtectionMixin,
-                         LoginRequiredMixin, CreateView):
+class BaseCreatePostView(FormMessagesMixin,
+                         DispatchProtectionMixin,
+                         LoginRequiredMixin,
+                         CreateView):
     '''
     Base view for creating new posts. Make sure to add CSRF for the
     image upload portion.
     '''
     form_class = BasePostForm
+    form_valid_message = "Posten er lagret"
+    form_invalid_message = "Rett feilene under"
     template_name = "papermill/admin/form.html"
     success_url = reverse_lazy('admin:papermill:list')
 
     def form_valid(self, form):
-
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-
-        messages.success(self.request, "Innlegget er lagret", extra_tags='msg')
+        form.instance.user = self.request.user
         return super(BaseCreatePostView, self).form_valid(form)
 
-    def form_invalid(self, form):
-        messages.error(self.request, "Rett feilene under")
-        return super(BaseCreatePostView, self).form_invalid(form)
 
-
-class BaseUpdatePostView(DispatchProtectionMixin,
-                         LoginRequiredMixin, UpdateView):
+class BaseUpdatePostView(FormMessagesMixin,
+                         DispatchProtectionMixin,
+                         LoginRequiredMixin,
+                         UpdateView):
     '''
     Base view for updating posts. Make sure to add CSRF for the
     image upload portion.
     '''
     model = BasePost
     form_class = BasePostForm
+    form_valid_message = "Endringer var vellykket"
+    form_invalid_message = "Rett feilene under"
     template_name = "papermill/admin/form.html"
     success_url = reverse_lazy('admin:papermill:list')
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        messages.success(self.request, "Endringen var vellykket.",
-                         extra_tags='msg')
+        form.instance.user = self.request.user
         return super(BaseUpdatePostView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, "Rett feilene under")
-        return super(BaseUpdatePostView, self).form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super(BaseUpdatePostView, self).get_context_data(**kwargs)
