@@ -15,7 +15,7 @@ class LatestPostsManager(models.Manager):
             status=self.model.STATUS_PUBLISHED,
             publish_at__lte=timezone.now()
             ).order_by(
-            '-publish_at', '-id')[:count]
+            '-featured', '-publish_at', '-id')[:count]
 
 
 class PublishedPostsManager(models.Manager):
