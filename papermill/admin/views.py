@@ -47,7 +47,8 @@ class BaseListPostView(LoginRequiredMixin, ListView):
     template_name = "papermill/admin/list.html"
 
     def get_queryset(self):
-        return self.model.objects.order_by('status', '-pk')
+        return self.model.objects.order_by('status', '-featured',
+                                           '-publish_at', '-pk')
 
 
 class BaseViewPostView(LoginRequiredMixin, DetailView):
