@@ -33,7 +33,8 @@ class BasePostsListView(ListView):
     paginate_by = PAPERMILL_SETTINGS['paginate_by']
 
     def get_queryset(self):
-        return self.model.published.all().order_by('-featured', '-pk')
+        return self.model.published.all().order_by(
+            '-featured', '-publish_at', '-pk')
 
     def get_context_data(self, **kwargs):
         context = super(BasePostsListView, self).get_context_data(**kwargs)
