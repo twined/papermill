@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load url from future %}
 <div class="overview">
-    <h2 class="section">{% trans 'News archive' %}</h2>
+    <h2 class="section">{% trans 'Nyhetsarkiv' %}</h2>
     <div class="overview-inner">
     {% for post in posts %}
         {% if forloop.first %}
@@ -17,9 +17,11 @@
             </dl>
             {% if show_lead %}
             <div class="row">
-                <p>
-                    {{ post.lead }}
-                </p>
+                <div class="col-md-12">
+                    <p>
+                        {{ post.lead }}
+                    </p>
+                </div>
             </div>
             {% endif %}
         </div>
