@@ -9,7 +9,7 @@
             <dl>
                 <dt>
                     <i class="fa fa-angle-double-right"> </i>
-                    <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+                    <a href="{{ post.get_absolute_url }}">{{ post.header }}</a>
                 </dt>
                 <dd>
                     {{ post.created|date:"d/m/Y" }}
@@ -28,7 +28,7 @@
             <dl>
                 <dt>
                     <i class="fa fa-angle-double-right"> </i>
-                    <a href="{% url 'posts:detail' year=post.created.year month=post.created.month day=post.created.day slug=post.slug %}">{{ post.header }}</a>
+                    <a href="{{ post.get_absolute_url }}">{{ post.header }}</a>
                 </dt>
                 <dd>
                     {{ post.created|date:"d/m/Y" }}
